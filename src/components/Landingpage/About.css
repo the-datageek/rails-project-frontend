@@ -1,0 +1,22 @@
+.about-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .about-image {
+    flex: 0 0 auto; /* disable flex grow and shrink */
+    margin-right: 20px;
+    height: 480px;
+    width: 700px;
+    border-radius: 10px;
+    margin-left: 15px;
+  }
+  
+  .about-text {
+    flex: 1 1 auto; /* allow flex grow and shrink */
+  }
+  .about h2 {
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+  }
