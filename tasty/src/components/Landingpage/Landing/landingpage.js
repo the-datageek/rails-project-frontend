@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import About from '../About/About';
+import Contacts from '../Contact/Contacts';
 import './landingpage.css'
 function    LandingPage() {
   const [username, setUsername] = useState('');
@@ -17,7 +19,8 @@ function    LandingPage() {
   }
 
   return (
-    <div className="split-landing">
+    <div>
+       <div className="split-landing">
     {/* Left section */}
     <div className="left-landing">
         {/* content for left section */}
@@ -82,8 +85,14 @@ function    LandingPage() {
        
     </div>
     </div>
+    
+        <About />
+        <Contacts />
 
+    </div>
+   
 
+    
 
 
 
