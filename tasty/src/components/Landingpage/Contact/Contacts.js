@@ -34,7 +34,7 @@ const ContactCard = ({ contact }) => {
     <div className="contact-card">
       <img src={contact.image} alt={contact.name} />
       <h2>{contact.name}</h2>
-      <p>{contact.details}</p>
+      <p classname="contact-card-p">{contact.details}</p>
     </div>
   );
 };

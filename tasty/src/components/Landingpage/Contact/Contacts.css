@@ -8,7 +8,8 @@
     text-align: center;
     border-radius: 10px;
     box-shadow: #ddd;
-    margin-bottom: 5%;
+    margin-top: 1rem;
+    margin-bottom: 5rem;
     transition: transform 0.3s ease-in-out;
   }
   .contact-card:hover{
@@ -31,7 +32,8 @@
   .contact-card p {
     font-size: 18px;
     font-weight: 600;
-    margin-top: -1rem;
+    margin-top: 1rem;
+    color: var(--Third-Color)
 
   }
   

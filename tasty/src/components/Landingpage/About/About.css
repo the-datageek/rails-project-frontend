@@ -1,3 +1,5 @@
+
+
 .split-about {
   display: flex;
 }
@@ -37,12 +39,14 @@
     font-size: 16px;
     color: #333;
     margin-top: -1rem;
+    margin-bottom: 8rem;
   }
   
   
   .about-text {
     flex: 1 1 auto; /* allow flex grow and shrink } */
     margin-right: 2rem;
+    color: #fff;
   }
 
   .about-title{
@@ -50,6 +54,7 @@
     font-family: var(--font-family);
     text-align: center;
     color: var(--Third-Color);
+    margin-bottom:3rem;
   }
 
   

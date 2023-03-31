@@ -24,7 +24,15 @@ function    LandingPage() {
     {/* Left section */}
     <div className="left-landing">
         {/* content for left section */}
-        {/* Add image here */}
+        <div className="landing">
+          <div className="landing-content">
+            <h3>Welcome to </h3>
+            <h1>Tasty Trail</h1>
+            <h2>The recipe app that makes every meal a success...</h2> 
+          </div>
+        </div>
+        <button className="landing-p-button">Create Account</button>
+
     </div>
 
     {/* Right section */}
