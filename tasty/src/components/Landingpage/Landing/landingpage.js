@@ -2,20 +2,35 @@ import React, { useState } from 'react';
 import About from '../About/About';
 import Contacts from '../Contact/Contacts';
 import './landingpage.css'
-function    LandingPage() {
+import network from '../../utils/network';
+import AppError from '../../AppError';
+import { useNavigate } from 'react-router-dom';
+
+
+
+function  LandingPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSignInSubmit = (event) => {
-    event.preventDefault();
-    // Code to handle sign in submission
-  }
 
-  const handleSignUpSubmit = (event) => {
-    event.preventDefault();
-    // Code to handle sign up submission
+
+  const registerUser = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const body = { email, password, username };
+      const response = await network.register(body);
+      setError(null);
+      navigate('/');
+    } catch (err) {
+      setError(JSON.stringify(err.response.data));
+    }
+    setLoading(false);
   }
 
   return (
@@ -47,7 +62,7 @@ function    LandingPage() {
         {/* Login Part */}
         <div className="login-form">
           <div className="sign-in-htm">
-            <form onSubmit={handleSignInSubmit}>
+            <form >
               <div className="group">
                 <input placeholder="Username" id="user" type="text" className="login-n-input" value={username} onChange={(event) => setUsername(event.target.value)} />
               </div>
@@ -65,23 +80,53 @@ function    LandingPage() {
           </div>
           {/* Sign Up Part */}
           <div className="sign-up-htm">
-            <form onSubmit={handleSignUpSubmit}>
+            <form onSubmit={registerUser}>
               <div className="group">
-                <input placeholder="Username" id="user" type="text" className="input" value={username} onChange={(event) => setUsername(event.target.value)} />
+                <input 
+                  placeholder="Username" 
+                  id="user" 
+                  type="text" 
+                  className="input" 
+                  value={username} 
+                  onChange={(event) => setUsername(event.target.value)} />
               </div>
               <div className="group">
-                <input placeholder="Email address" id="email" type="text" className="input" value={email} onChange={(event) => setEmail(event.target.value)} />
+                <input 
+                  placeholder="Email address" 
+                  id="email" 
+                  type="text" 
+                  className="input" 
+                  value={email} 
+                  onChange={(event) => setEmail(event.target.value)} />
               </div>
               <div className="group">
-                <input placeholder="Password" id="password" type="password" className="input" data-type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+                <input 
+                  placeholder="Password" 
+                  id="password" 
+                  type="password" 
+                  className="input" 
+                  data-type="password" 
+                  value={password} 
+                  onChange={(event) => setPassword(event.target.value)} />
               </div>
               <div className="group">
                 <input placeholder="Confirm password" id="confirm-password" type="password" className="input" data-type="password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} />
               </div>
               <div className="group">
-                <input type="submit" className="button" value="Sign Up" />
+                {/* <input type="submit" className="button" value="Sign Up" /> */}
+                { loading ? <div className="d-flex align-items-center">
+                                        <strong>Please Wait...</strong>
+                                        <div className="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                                        </div> : 
+                                        <button type="submit" className="button">CREATE ACCOUNT</button> 
+                        }
+
+                        
+                        { error && !loading && <div className="alert alert-danger mt-3">{error}</div> }
+
               </div>
             </form>
+            <AppError loading={loading} error={error}/>
             <div className="hr"></div>
             <div className="footer">
               <label htmlFor="item-1" className="item-2">Already have an account?</label>

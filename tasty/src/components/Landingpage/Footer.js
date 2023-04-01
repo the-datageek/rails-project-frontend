@@ -3,7 +3,8 @@ import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer style={footerStyle}>
+   <div style={footerOrientation}>
+     <footer style={footerStyle}>
       <div style={socialMediaStyle}>
         <a href="https://www.facebook.com"><FaFacebook size={20} /></a>
         <a href="https://www.twitter.com"><FaTwitter size={20} /></a>
@@ -13,16 +14,26 @@ const Footer = () => {
         © 2023 Tasty Trail. All rights reserved.
       </div>
     </footer>
+   </div>
   );
 };
 
+const footerOrientation ={
+  position: 'absolute',
+  bottom: '0rem',
+
+}
+
 const footerStyle = {
   display: 'flex',
+  position: 'relative',
+  alignSelf: 'bottom',
   alignItems: 'center',
   backgroundColor: 'black',
   color: 'orange',
   padding: '2rem',
   marginTop: '2rem',
+  paddingBottom: '2rem',
 };
 
 const socialMediaStyle = {
