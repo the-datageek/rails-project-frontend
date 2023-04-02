@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from "react";
 import About from "./components/Landingpage/About/About"
 import Contacts from "./components/Landingpage/Contact/Contacts";
@@ -9,10 +10,15 @@ import Meal from "./components/Home/Home";
 import { Myrecipe } from "./components/MyRecipe/myrecipe";
 import { Profile } from "./components/Profile/Profile";
 import {Routes, Route} from 'react-router-dom'
+=======
+import logo from './logo.svg';
+import './App.css';
+>>>>>>> main
 
 function App() {
   return (
     <div className="App">
+<<<<<<< HEAD
 
       <>
         <Navbar />
@@ -42,6 +48,22 @@ function App() {
        */}
       {/* <Profile /> */}
       </>
+=======
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+>>>>>>> main
     </div>
   );
 }
