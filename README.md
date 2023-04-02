@@ -1,5 +1,5 @@
 
-# Petflix
+# Tasty Trail
 
 ## Table of Content
 1. [Description](#description)
