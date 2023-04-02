@@ -12,8 +12,10 @@
 5. [License](#license)
  
 
+This is a simple web application for 
+
 ## Description
-Cooking at home has become a popular trend, and many people are looking for new and exciting recipes to try. The problem is that people are finding it difficult to discover new recipes that match their cooking skills, and personal preferences. This leads to a lack of variety in their diet.We created Tasty Trail, a recipe finding app which has a user-friendly interface that helps individuals explore new cuisines and ingredients while also expanding their creativity by letting them create new recipes and save them in the app.
+This recipe app is a simple web application built using ReactJS that allows users to search for recipes based on ingredients and add their own recipes,
 
 
 ## Project Guidelines
