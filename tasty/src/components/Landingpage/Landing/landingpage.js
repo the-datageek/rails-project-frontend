@@ -1,110 +1,123 @@
 import React, { useState, useEffect } from 'react';
 import About from '../About/About';
 import Contacts from '../Contact/Contacts';
-import './landingpage.css'
-import { useNavigate } from 'react-router-dom';
+import './landingpage.css';
+import { useNavigate} from 'react-router-dom';
 
+function LandingPage() {
+  const navigate= useNavigate();
 
-
-function  LandingPage() {
-
-  // states
+  const [isChecked, setIsChecked] = useState(false);
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [success, setSuccess] = useState(false);
-  const [wrongPass, setWrongPass] =useState(2);
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  //navigation
-  const navigate = useNavigate();
+  const handleLoginClick = () => {
+    // setIsChecked(!isChecked);
+    navigate('/recipes')
+  };
 
-  useEffect(()=>{
-    if(parseInt(localStorage.getItem('gotologin')) ===2){
-        setSuccess(true);
-    }else{
-      setSuccess(false);
-    }
-  }, []);
+  const handleSignUpClick = () => {
+    // setIsChecked(!isChecked);
+    navigate('/')
+  };
 
-  const userLogin = (e) => {
+  const [redirectToRecipes, setRedirectToRecipes] = useState(false);
+
+  function handleUser(e){
+    setUsername(e.target.value)
+  }
+
+  function handleEmail(e) {
+    setEmail(e.target.value);
+  }
+
+  function handlePassword(e) {
+    setPassword(e.target.value);
+  }
+
+  function handleConfirmPassword(e) {
+    setConfirmPassword(e.target.value);
+  }
+
+  function handleLoginBtn(e) {
     e.preventDefault();
-    // setLoading(true);
-    fetch("https://project-recipe.onrender.com/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // << code 1 >> is sent by the backend when user password matches the entered password so we will let him login and redirect to the todos page
-        if (data.code === 1) {
-          localStorage.setItem("UserID", data.userid);
-          localStorage.setItem("UserName", data.name);
-          navigate("/todos");
-        } else if (data.code === -1) {
-          navigate("/login");
-          setWrongPass(1);
-        } else {
-          navigate("/login");
-          setWrongPass(0);
-        }
-        //resetting the fields to their normal state (empty)
-        // setLoginEmail("");
-        // setLoginPass("");
-        // setLoading(false);
-      });
+    handleLogin();
+  }
+
+  function handleRegisterBtn(e) {
+    e.preventDefault();
+    handleRegister();
+  }
+
+  const handleSubmitOfLog = (e) => {
+    e.preventDefault();
+    const token = {
+      email,
+      password,
+    };
+    setRedirectToRecipes(true);
+  };
+
+  const handleSubmitOfReg = (e) => {
+    e.preventDefault();
+    const token = {
+      name: username,
+      email,
+      password,
+    };
+    setRedirectToRecipes(true);
+  };
+
+  function handleRegister() {
+    const registerToken = {
+      name: username,
+      email,
+      password,
     };
 
-    const userSignup = (e) => {
-      e.preventDefault();
-      localStorage.removeItem("gotologin");
-      // setLoading(true);
-      fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, email, password, confirmPassword }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data.code === 1) {
-            setWrongPass(true);
-          } else {
-            localStorage.setItem("gotologin", 2);
-            navigate("/login");
-            setUsername("");
-            setEmail("");
-            setPassword("");
-            
-          }
-          // setLoading(false);
-        });
-    }; 
-    const toSignup=()=>{
-      navigate("/signup");
-    }
+    // Fetch from API
+  //   fetch('https://project-recipe.onrender.com/users', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(registerToken),
+  //   }).then(() => {
+  //     setRedirectToRecipes(true);
+  //   });
+  }
 
-    // Messages for different condition
-    // const wrongPassMsg = (
-    //   <h3 style={wrongPassStyle}>
-    //     {warnWrongPass}&nbsp;&nbsp;&nbsp;&nbsp;You Entered Incorrect Login Details
-    //     please try with another
-    //   </h3>
-    // );
-    // const wrongPassMsgnotFound = (
-    //   <h3 style={wrongPassStyle}>
-    //     {notFound} &nbsp;&nbsp;&nbsp;&nbsp; User not found click on signup first{" "}
-    //     <button style={tosignupBtn} onClick={toSignup}>
-    //       Signup
-    //     </button>
-    //   </h3>
-    // );
+  function handleLogin() {
+    const loginToken = {
+      email,
+      password,
+    };
+    // fetch('https://project-recipe.onrender.com/users/login', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(loginToken),
+    // })
+    // .then((res) => {
+    //   if (!res.ok) {
+    //     throw new Error('Failed to login');
+    //   }
+    //   return res.json();
+    // })
+    // .then((data) => {
+    //   console.log(data);
+    //   setRedirectToRecipes(true);
+    // })
+    // .catch((error) => {
+    //   console.error(error);
+    //   // handle the error
+    // });
+  }
 
+  
   
   return (
     <div>
@@ -127,8 +140,9 @@ function  LandingPage() {
     <div className="right-landing">
         {/* content for right section */}
         <div className="landing-container">
+          {/* {showingonLog && <useNavigate to="/recipes"/>} */}
       <div className="login-container">
-        <input id="item-1" type="radio" name="item" className="sign-in" checked />
+        <input id="item-1" type="radio" name="item" className="sign-in" defaultChecked />
         <label htmlFor="item-1" className="item">Sign In</label>
         <input id="item-2" type="radio" name="item" className="sign-up" />
         <label htmlFor="item-2" className="item">Sign Up</label>
@@ -136,15 +150,14 @@ function  LandingPage() {
         <div className="login-form">
           <div className="sign-in-htm">
             
-            <form onSubmit={userLogin}>
+            <form onSubmit={handleSubmitOfLog}>
               <div className="group">
                 <input 
                   placeholder="Email" 
-                  id="user" 
                   type="text" 
                   className="login-n-input" 
                   value={email} 
-                  // onChange={(val) => {setLoginEmail(val.target.value)}}
+                  onChange={handleEmail}
                   />
               </div>
               <div className="group">
@@ -155,17 +168,18 @@ function  LandingPage() {
                     className="login-e-input" 
                     data-type="password" 
                     value={password} 
-                    // onChange={(val) => {setLoginPass(val.target.value)}} 
+                    onChange={handlePassword}
                     />
               </div>
               <div className="group">
                 <input 
                     type="submit" 
                     className="button" 
-                    value="Sign In" />
+                    value="Sign In" 
+                    onClick={handleLoginClick}
+                    />
               </div>
              
-
             </form>
             <div className="hr"></div>
             <div className="l-footer">
@@ -174,7 +188,7 @@ function  LandingPage() {
           </div>
           {/* Sign Up Part */}
           <div className="sign-up-htm">
-            <form onSubmit={userSignup}>
+            <form onSubmit={handleSubmitOfReg}>
               <div className="group">
                 <input 
                   placeholder="Username" 
@@ -182,7 +196,8 @@ function  LandingPage() {
                   type="text" 
                   className="input" 
                   value={username} 
-                  onChange={(event) => setUsername(event.target.value)} />
+                  onChange={handleUser} 
+                  />
               </div>
               <div className="group">
                 <input 
@@ -191,7 +206,7 @@ function  LandingPage() {
                   type="text" 
                   className="input" 
                   value={email} 
-                  onChange={(event) => setEmail(event.target.value)} />
+                  onChange={handleEmail} />
               </div>
               <div className="group">
                 <input 
@@ -201,7 +216,7 @@ function  LandingPage() {
                   className="input" 
                   data-type="password" 
                   value={password} 
-                  onChange={(event) => setPassword(event.target.value)} />
+                  onChange={handlePassword} />
               </div>
               <div className="group">
                 <input 
@@ -210,11 +225,16 @@ function  LandingPage() {
                   type="password" 
                   className="input" 
                   data-type="password" 
-                  value={confirmPassword} 
-                  onChange={(event) => setConfirmPassword(event.target.value)} />
+                  value={password} 
+                  onChange={handleConfirmPassword} />
               </div>
               <div className="group">
-                <input type="submit" className="button" value="Sign Up" />
+                <input 
+                  type="submit" 
+                  className="button" 
+                  value="Sign Up" 
+                  onClick={handleSignUpClick} 
+                  />
               </div>
             </form>
             <div className="hr"></div>
@@ -233,9 +253,9 @@ function  LandingPage() {
         <Contacts />
 
     </div>
-   
+  
 
-  );
-}
+  )};
+
 
 export default LandingPage;

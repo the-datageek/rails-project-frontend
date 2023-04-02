@@ -11,11 +11,17 @@ import { Profile } from "./components/Profile/Profile";
 import {Routes, Route} from 'react-router-dom'
 
 function App() {
+  const [token, setToken] = useState([])
+  if (!token){
+    return<LandingPage setToken={setToken}/>
+  }
+  console.log(">>>>> token")
+  console.log(token)
   return (
     <div className="App">
 
 
-      <div>
+      <>
         <Navbar />
         <div>
           <Routes>
@@ -32,7 +38,7 @@ function App() {
         {/* <Footer /> */}
         </div>
          
-      </div>
+      </>
     
     </div>
   )
