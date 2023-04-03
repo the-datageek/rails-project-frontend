@@ -17,7 +17,7 @@ This is a simple web application for
 ## Description
 This recipe app is a simple web application built using ReactJS that allows users to search for recipes based on ingredients and add their own recipes,
 
-
+The deployed backend for this application can be found at (https://project-recipe.onrender.com/), and the rails repository can be found at (https://github.com/faithkigen/projects)
 ## Project Guidelines
 
 ### Minimum Viable Product
