@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import About from '../About/About';
-import Contacts from '../Contact/Contacts';
 import './landingpage.css';
 import { useNavigate} from 'react-router-dom';
 
@@ -20,7 +18,7 @@ function LandingPage() {
 
   const handleSignUpClick = () => {
     // setIsChecked(!isChecked);
-    navigate('/')
+    navigate('/landingpage')
   };
 
   const [redirectToRecipes, setRedirectToRecipes] = useState(false);
@@ -60,14 +58,42 @@ function LandingPage() {
     setRedirectToRecipes(true);
   };
 
-  const handleSubmitOfReg = (e) => {
-    e.preventDefault();
-    const token = {
-      name: username,
-      email,
-      password,
-    };
-    setRedirectToRecipes(true);
+  // const handleSubmitOfReg = (e) => {
+  //   e.preventDefault();
+  //   const token = {
+  //     name: username,
+  //     email,
+  //     password,
+  //   };
+  //   setRedirectToRecipes(true);
+  // };
+
+    function handleSubmitOfReg(e) {
+      e.preventDefault();
+      const token = {
+          name: username,
+          email,
+          password,
+      };
+
+      fetch('https://project-recipe.onrender.com/users', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(token),
+      })
+      .then(response => {
+          if (response.ok) {
+              navigate('/landingpage');
+          } else {
+              throw new Error('Registration failed');
+          }
+      })
+      .catch(error => {
+          console.error(error);
+          // handle the error
+      });
   };
 
   function handleRegister() {
@@ -94,27 +120,27 @@ function LandingPage() {
       email,
       password,
     };
-    // fetch('https://project-recipe.onrender.com/users/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(loginToken),
-    // })
-    // .then((res) => {
-    //   if (!res.ok) {
-    //     throw new Error('Failed to login');
-    //   }
-    //   return res.json();
-    // })
-    // .then((data) => {
-    //   console.log(data);
-    //   setRedirectToRecipes(true);
-    // })
-    // .catch((error) => {
-    //   console.error(error);
-    //   // handle the error
-    // });
+    fetch('https://project-recipe.onrender.com/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(loginToken),
+    })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('Failed to login');
+      }
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      setRedirectToRecipes(true);
+    })
+    .catch((error) => {
+      console.error(error);
+      // handle the error
+    });
   }
 
   
@@ -225,7 +251,7 @@ function LandingPage() {
                   type="password" 
                   className="input" 
                   data-type="password" 
-                  value={password} 
+                  value={confirmPassword} 
                   onChange={handleConfirmPassword} />
               </div>
               <div className="group">
@@ -247,11 +273,7 @@ function LandingPage() {
     </div>
        
     </div>
-    </div>
-    
-        <About />
-        <Contacts />
-
+    </div> 
     </div>
   
 
